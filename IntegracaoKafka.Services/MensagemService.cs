@@ -11,6 +11,9 @@ namespace IntegracaoKafka.Services
 
         public async Task<dynamic> IncluirAsync(MensagemDTO mensagem)
         {
+            if (string.IsNullOrEmpty(mensagem.Titulo)) throw new Exception("Campo [TÍTULO] é obrigatório!");
+            if (string.IsNullOrEmpty(mensagem.Texto)) throw new Exception("Campo [TEXTO] é obrigatório!");
+
             var config = new ProducerConfig
             {
                 BootstrapServers = Settings.URL_SERVIDOR_KAFKA,
