@@ -18,11 +18,11 @@ namespace IntegracaoKafka.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Incluir(IncluirMensagemDTO incluirMensagem)
+        public IActionResult Incluir(RequestMensagemDTO mensagem)
         {
             try
             {
-                return Ok(_mensagemService.Incluir(incluirMensagem));
+                return Ok(_mensagemService.Incluir(mensagem));
             }
             catch (Exception ex)
             {

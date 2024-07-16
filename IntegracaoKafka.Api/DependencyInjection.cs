@@ -10,7 +10,7 @@ namespace IntegracaoKafka.Api
             Settings.IS_DESENV = builder.Configuration["Ambiente"] == "2";
 
             #region Application Services
-            builder.Services.AddScoped<MensagemService>();
+            builder.Services.AddTransient<MensagemService>();
             #endregion
 
             return builder;
