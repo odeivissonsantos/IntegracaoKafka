@@ -19,10 +19,10 @@ namespace IntegracaoKafka.Services
 
             using (var producer = new ProducerBuilder<string, string>(config).Build())
             {
-                var resultado = await producer.ProduceAsync("detran-ba",
+                var resultado = await producer.ProduceAsync("api-integracao-teste",
                 new Message<string, string>
                 {
-                    Key = new Guid().ToString(),
+                    Key = Guid.NewGuid().ToString(),
                     Value = JsonSerializer.Serialize(mensagem)
                 });
 
@@ -33,31 +33,42 @@ namespace IntegracaoKafka.Services
             return new { sucesso = "Mensagem incluída com sucesso!" };
         }
 
-        public async Task<MensagemDTO?> ConsumirTopicoAsync(string nome_topico, CancellationTokenSource cts)
+        public async Task ConsumirTopicoAsync(string nome_topico, CancellationTokenSource cts)
         {
-            try
+            var config = new ConsumerConfig
             {
-                var config = new ConsumerConfig
-                {
-                    BootstrapServers = "10.21.246.79:9092",
-                    GroupId = $"detran-ba-group-0",
-                    AutoOffsetReset = AutoOffsetReset.Earliest
-                };
+                BootstrapServers = Settings.URL_SERVIDOR_KAFKA,
+                GroupId = $"api-integracao-teste-0",
+                AutoOffsetReset = AutoOffsetReset.Earliest,
+                EnableAutoCommit = false
+            };
 
+            while (!cts.IsCancellationRequested)
+            {
                 using (var consumer = new ConsumerBuilder<string, string>(config).Build())
                 {
-                    consumer.Subscribe(nome_topico);
-                    var cr = consumer.Consume(cts.Token);
+                    try
+                    {
+                        consumer.Subscribe(nome_topico);
+                        var cr = consumer.Consume(cts.Token);
 
-                    var json = cr.Message.Value;
-                    MensagemDTO? mensagem = JsonSerializer.Deserialize<MensagemDTO>(json);
-                    return mensagem;
+                        var json = cr.Message.Value;
+                        MensagemDTO? mensagem = JsonSerializer.Deserialize<MensagemDTO>(json);
+
+                        if (mensagem != null)
+                            Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} - ID = {mensagem?.Id}; TÍTULO: {mensagem?.Titulo}; TEXTO = {mensagem?.Texto}; DATA DE CRIAÇÃO UTC = {cr.Timestamp.UtcDateTime:dd/MM/yyyy HH:mm:ss}");
+
+                        consumer.Commit(cr); // Realiza o commit em quais mensagens já foram retornadas.
+
+                    }
+                    catch (OperationCanceledException ocex)
+                    {
+                        consumer.Close();
+                        return;
+                    }
                 }
             }
-            catch (OperationCanceledException ocex)
-            {
-                return null;
-            }
+
         }
     }
 }
