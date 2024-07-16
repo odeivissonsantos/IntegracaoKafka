@@ -18,7 +18,7 @@ namespace IntegracaoKafka.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> IncluirAsync(RequestMensagemDTO mensagem)
+        public async Task<IActionResult> IncluirAsync(MensagemDTO mensagem)
         {
             try
             {
@@ -30,17 +30,5 @@ namespace IntegracaoKafka.Api.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> EnviarAsync()
-        {
-            try
-            {
-                return Ok(await _mensagemService.EnviarAsync());
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { erro = ex.Message });
-            }
-        }
     }
 }

@@ -9,7 +9,7 @@ namespace IntegracaoKafka.Services
     {
         public MensagemService() { }
 
-        public async Task<dynamic> IncluirAsync(RequestMensagemDTO mensagem)
+        public async Task<dynamic> IncluirAsync(MensagemDTO mensagem)
         {
             var config = new ProducerConfig
             {
@@ -33,9 +33,31 @@ namespace IntegracaoKafka.Services
             return new { sucesso = "Mensagem incluída com sucesso!" };
         }
 
-        public async Task<dynamic> EnviarAsync()
+        public async Task<MensagemDTO?> ConsumirTopicoAsync(string nome_topico, CancellationTokenSource cts)
         {
-            return new { sucesso = "Mensagem incluída com sucesso!" };
+            try
+            {
+                var config = new ConsumerConfig
+                {
+                    BootstrapServers = "10.21.246.79:9092",
+                    GroupId = $"detran-ba-group-0",
+                    AutoOffsetReset = AutoOffsetReset.Earliest
+                };
+
+                using (var consumer = new ConsumerBuilder<string, string>(config).Build())
+                {
+                    consumer.Subscribe(nome_topico);
+                    var cr = consumer.Consume(cts.Token);
+
+                    var json = cr.Message.Value;
+                    MensagemDTO? mensagem = JsonSerializer.Deserialize<MensagemDTO>(json);
+                    return mensagem;
+                }
+            }
+            catch (OperationCanceledException ocex)
+            {
+                return null;
+            }
         }
     }
 }
