@@ -1,5 +1,6 @@
 ﻿using Confluent.Kafka;
 using IntegracaoKafka.Entities.DTOs;
+using IntegracaoKafka.Services.Util;
 using System.Text.Json;
 
 namespace IntegracaoKafka.Services
@@ -8,32 +9,33 @@ namespace IntegracaoKafka.Services
     {
         public MensagemService() { }
 
-        public dynamic Incluir(RequestMensagemDTO mensagem)
+        public async Task<dynamic> IncluirAsync(RequestMensagemDTO mensagem)
         {
             var config = new ProducerConfig
             {
-                BootstrapServers = "10.21.246.79:9092"
+                BootstrapServers = Settings.URL_SERVIDOR_KAFKA,
+                MessageTimeoutMs = 10000 // 10 segundos de tempo limite para retorno da requisição;
             };
 
             using (var producer = new ProducerBuilder<string, string>(config).Build())
             {
-                string mensagemJSON = JsonSerializer.Serialize(mensagem);
-
-                producer.Produce("detran-ba",
+                var resultado = await producer.ProduceAsync("detran-ba",
                 new Message<string, string>
                 {
                     Key = new Guid().ToString(),
-                    Value = mensagemJSON
+                    Value = JsonSerializer.Serialize(mensagem)
                 });
 
+                if (resultado.Status != PersistenceStatus.Persisted)
+                    throw new Exception($"Falha ao incluir mensagem: STATUS = {resultado.Status} - ERRO = {resultado.Message}");
             }
 
             return new { sucesso = "Mensagem incluída com sucesso!" };
         }
 
-        public dynamic Enviar()
+        public async Task<dynamic> EnviarAsync()
         {
-            return null;
+            return new { sucesso = "Mensagem incluída com sucesso!" };
         }
     }
 }

@@ -18,11 +18,11 @@ namespace IntegracaoKafka.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Incluir(RequestMensagemDTO mensagem)
+        public async Task<IActionResult> IncluirAsync(RequestMensagemDTO mensagem)
         {
             try
             {
-                return Ok(_mensagemService.Incluir(mensagem));
+                return Ok(await _mensagemService.IncluirAsync(mensagem));
             }
             catch (Exception ex)
             {
@@ -31,11 +31,11 @@ namespace IntegracaoKafka.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Enviar()
+        public async Task<IActionResult> EnviarAsync()
         {
             try
             {
-                return Ok(_mensagemService.Enviar());
+                return Ok(await _mensagemService.EnviarAsync());
             }
             catch (Exception ex)
             {
