@@ -107,6 +107,29 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "IntegracaoKafka.Entities/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/IntegracaoKafka.Entities.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/IntegracaoKafka.Entities.dll": {}
+        }
+      },
+      "IntegracaoKafka.Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "IntegracaoKafka.Entities": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/IntegracaoKafka.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/IntegracaoKafka.Services.dll": {}
+        }
       }
     }
   },
@@ -460,10 +483,22 @@
         "swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
+    },
+    "IntegracaoKafka.Entities/1.0.0": {
+      "type": "project",
+      "path": "../IntegracaoKafka.Entities/IntegracaoKafka.Entities.csproj",
+      "msbuildProject": "../IntegracaoKafka.Entities/IntegracaoKafka.Entities.csproj"
+    },
+    "IntegracaoKafka.Services/1.0.0": {
+      "type": "project",
+      "path": "../IntegracaoKafka.Services/IntegracaoKafka.Services.csproj",
+      "msbuildProject": "../IntegracaoKafka.Services/IntegracaoKafka.Services.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "IntegracaoKafka.Entities >= 1.0.0",
+      "IntegracaoKafka.Services >= 1.0.0",
       "Microsoft.AspNetCore.OpenApi >= 7.0.14",
       "Swashbuckle.AspNetCore >= 6.5.0"
     ]
@@ -494,7 +529,14 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\PROJETOS\\IntegracaoKafka\\IntegracaoKafka.Entities\\IntegracaoKafka.Entities.csproj": {
+              "projectPath": "D:\\PROJETOS\\IntegracaoKafka\\IntegracaoKafka.Entities\\IntegracaoKafka.Entities.csproj"
+            },
+            "D:\\PROJETOS\\IntegracaoKafka\\IntegracaoKafka.Services\\IntegracaoKafka.Services.csproj": {
+              "projectPath": "D:\\PROJETOS\\IntegracaoKafka\\IntegracaoKafka.Services\\IntegracaoKafka.Services.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

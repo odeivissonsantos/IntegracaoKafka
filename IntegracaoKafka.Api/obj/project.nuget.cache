@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "tdZLaxbKIR+V3w3EL0K/gqt9THhqmffA+KNuc03e4N0zoGwCZpR3XThod1ytU88dSn+mXbrwJpe367rUKbtKoA==",
+  "dgSpecHash": "xeWrbK53Dyv9VCX+2E6wpLMnpaqbhlbpGPVLiagqSFqTQpVV+mG0WCOI+7faZ+awt3MBR4lqKfSuBmEjYyqu/g==",
   "success": true,
   "projectFilePath": "D:\\PROJETOS\\IntegracaoKafka\\IntegracaoKafka.Api\\IntegracaoKafka.Api.csproj",
   "expectedPackageFiles": [

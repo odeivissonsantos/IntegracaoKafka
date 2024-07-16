@@ -11,4 +11,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IntegracaoKafka.Entities\IntegracaoKafka.Entities.csproj" />
+    <ProjectReference Include="..\IntegracaoKafka.Services\IntegracaoKafka.Services.csproj" />
+  </ItemGroup>
+
 </Project>

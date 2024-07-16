@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IntegracaoKafka.Entities\IntegracaoKafka.Entities.csproj" />
+  </ItemGroup>
+
 </Project>
