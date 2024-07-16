@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegracaoKafka.Services", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegracaoKafka.Entities", "IntegracaoKafka.Entities\IntegracaoKafka.Entities.csproj", "{2B9ACFAB-29D4-46D9-96C0-0C62A13A5517}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegracaoKafka.Consumer", "IntegracaoKafka.Consumer\IntegracaoKafka.Consumer.csproj", "{1B7B27EF-535B-451A-90BA-0907FEB57036}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{2B9ACFAB-29D4-46D9-96C0-0C62A13A5517}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B9ACFAB-29D4-46D9-96C0-0C62A13A5517}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B9ACFAB-29D4-46D9-96C0-0C62A13A5517}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B7B27EF-535B-451A-90BA-0907FEB57036}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B7B27EF-535B-451A-90BA-0907FEB57036}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B7B27EF-535B-451A-90BA-0907FEB57036}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B7B27EF-535B-451A-90BA-0907FEB57036}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
